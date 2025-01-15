@@ -1,0 +1,128 @@
+h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+.typewriter h1 {
+    color: #000000;
+    font-family: monospace;
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    letter-spacing: .15em;
+    animation:
+        typing 1.5s steps(30, end) forwards,
+        blink-caret .5s step-end infinite;
+    padding-left: 30px;
+    width: 22ch;
+    display: inline-block;
+    text-align: left;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+@keyframes typing {
+    from { width: 0ch }
+    to { width: 22ch }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange }
+}
+
+@font-face {
+    font-family: "WHOA Spine Minimum";
+    src: url("https://assets.codepen.io/174183/WHOA-Variable-Spine-v0.3.ttf")
+      format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "WHOA Top Minimum";
+    src: url("https://assets.codepen.io/174183/WHOA-Variable-Top-v0.3.ttf")
+      format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: sans-serif;
+    max-width: 50rem;
+    padding: 1rem 15rem;
+    color: #141414;
+    background: #ffffff;
+    display: grid;
+    align-items: left;
+  }
+  
+  h1 {
+    text-transform: lowercase;
+    font-size: 1.5rem;
+  }
+  
+  h1 span {
+    display: block;
+    /*cursor: url("https://assets.codepen.io/174183/spiral_1.png"), auto;*/
+    cursor: url(https://cur.cursors-4u.net/symbols/sym-1/sym57.cur), auto !important;
+    font-family: "WHOA Top Minimum";
+    font-variation-settings: "hrzn" 0, "vert" 0, "rota" 0, "zoom" 0;
+    font-weight: normal;
+    font-size: clamp(10rem, 100vw - 80rem, 16rem);
+    position: relative;
+    line-height: 0.5;
+    margin: 0 0 0 1rem;
+  }
+  
+  h1 span::before {
+    content: "sandbox";
+    font-family: "WHOA Spine Minimum";
+    font-variation-settings: "hrzn" 0, "vert" 0, "rota" 0, "zoom" 0;
+    font-size: 1em;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    left: 0;
+  }
+  
+  h1 span:hover,
+  h1 span:hover::before {
+    font-variation-settings: "hrzn" 820, "vert" -1000, "rota" 59, "zoom" 820;
+    transition: all 1000ms cubic-bezier(0.42, 0, 0.11, 1.43);
+  }
+  
+  h1 span:hover {
+    -webkit-text-stroke: 1px white;
+  }
+
+  .spiral {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    margin-top: 80px;
+    margin-left: 20%;
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes spiral {
+    0% {
+        --angle: 0deg;
+    }
+    100% {
+        --angle: 360deg;
+    }
+  }
+
+  .character {
+    color: black;
+    font-size: 4em;
+    transform: translateY(calc(sin(var(--angle)) * 100px)) scale(calc(cos(var(--angle)) * 0.5 + 0.5));
+    animation: spiral 4s linear infinite;
+  }
