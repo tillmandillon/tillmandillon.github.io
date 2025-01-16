@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+    <title>tillman's sandbox</title>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1><a href="index.html"><div class="typewriter">
+        <h1>$ cat ./tillman's</h1>
+    </div>
+    <span>sandbox</span>
+    </a></h1>
+
+    <h2>Crude Motion Tracker</h2>
+    <p>{description goes here}</p>
+    
+    <p>Try a different frame offset:</p>
+    <input type="text" id="frameOffset" class="motionTrackerFrameOffset" placeholder="10" value="10">
+    <p>Check to try constructive interference (AND) instead of the default destructive interference (XOR):</p>
+    <input type="checkbox" id="invertColors">
+
+    <video id="video" autoplay playsinline style="display:none"></video>
+    <canvas id="canvas"></canvas>
+    <script src="motionTracker.js"></script>
+</body>
+</HTML>
