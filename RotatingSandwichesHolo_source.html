@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sammich Cross</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* Optional background */
+            position: relative;
+        }
+
+        #filler {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .figure-container {
+            position: absolute;
+            width: 25vw; /* Each figure takes 25% of the viewport width */
+            height: 25vh; /* Each figure takes 25% of the viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Positioning the figures */
+        .top {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .bottom {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(-1,-1);
+        }
+
+        .left {
+            left: 20vh;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .right {
+            right: 20vh;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body onload="scrapeWebsite()">
+    <div id="filler"></div>
+
+    <script>
+        async function scrapeWebsite() {
+            try {
+                const response = await fetch('https://api.allorigins.win/get?url=https://rotatingsandwiches.wordpress.com/');
+                if (!response.ok) throw new Error('Failed to fetch page');
+
+                const data = await response.json();
+                const text = data.contents;
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                const figures = doc.querySelectorAll('figure.wp-block-image');
+
+                if (figures.length > 0) {
+                    const i = Math.floor(Math.random() * figures.length);
+                    const figureHTML = figures[i].outerHTML; // Get the HTML of the figure
+
+                    // Insert four identical figures at different positions
+                    document.getElementById("filler").innerHTML = `
+                        <div class="figure-container top">${figureHTML}</div>
+                        <div class="figure-container bottom">${figureHTML}</div>
+                        <div class="figure-container left">${figureHTML}</div>
+                        <div class="figure-container right">${figureHTML}</div>
+                    `;
+                } else {
+                    console.error("No figures found.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+		
+		document.addEventListener('keydown', (event) => {
+            if (event.key === 'f' || event.key === 'F') {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
